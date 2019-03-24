@@ -1,0 +1,277 @@
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+from math import *
+import numpy as np
+
+def myInit() :
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(65,1,.01,400)
+    gluLookAt(8,9,8,
+              0,0,0,
+              0,1,0)
+    glClearColor(1,1,1,1)
+    glClear(GL_COLOR_BUFFER_BIT)
+
+angle=0
+x=0
+forward=True
+
+def sec5():
+    global angle
+    global x
+    global forward
+    glClear(GL_COLOR_BUFFER_BIT)
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+
+
+
+    glBegin(GL_POLYGON)#grey street
+    glColor3f(.5, .5, 0.5)
+    glVertex(10, 0, -2)
+    glVertex(-100, 0, -2)
+    glVertex(-100, 0, 10.5)
+    glVertex(10, 2, 4.1)
+    glEnd()
+
+    glBegin(GL_TRIANGLES)  # left green street
+    glColor3f(0, .5, 0)
+    glVertex(-100, 0, 10.5)
+    glVertex(10, 2, 4.1)
+    glVertex(1, -1, 100)
+    glEnd()
+
+    glBegin(GL_POLYGON)  # blue sky
+    glColor(0.5, 0.8, .9)
+    glVertex(200, 0, -500)
+    glVertex(-100, 0, -500)
+    glVertex(-100, 0, -7)
+    glVertex(10, 0, -7)
+
+    glEnd()
+
+
+
+    glBegin(GL_POLYGON)  # right green street
+    glColor3f(0, .5, 0)
+    glVertex(10, 0, -15)
+    glVertex(-100, 0, -15)
+    glVertex(-100, 0, -2)
+    glVertex(10, 0, -2)
+    glEnd()
+
+
+
+
+
+
+    glBegin(GL_POLYGON)#white street3
+    glColor3f(1, 1, 1)
+    glVertex(2, 0, .2)
+    glVertex(-3, 0, .5)
+    glVertex(-3, 0,1.6)
+    glVertex(2.3,.4, 1.5)
+    glEnd()
+
+    glBegin(GL_POLYGON)  # white street2
+    glColor3f(1, 1, 1)
+    glVertex(7.2, 0, .3)
+    glVertex(3.3, 0, .32)
+    glVertex(3.3, 0, 1.33)
+    glVertex(7.0, .4, 1.6)
+    glEnd()
+
+    glBegin(GL_POLYGON)  # white street1
+    glColor3f(1, 1, 1)
+    glVertex(11.2, 0, .3)
+    glVertex(8.2, 0, .3)
+    glVertex(8.0, .4, 1.6)
+    glVertex(11.0, .4, 1.6)
+    glEnd()
+
+    glBegin(GL_POLYGON)  # white street4
+    glColor3f(1, 1, 1)
+    glVertex(-5, 0, .3)
+    glVertex(-13.4, 0, .7)
+    glVertex(-13, 0, 1.8)
+    glVertex(-4.3, .4, 1.7)
+    glEnd()
+
+    glBegin(GL_POLYGON)  # white street5
+    glColor3f(1, 1, 1)
+    glVertex(-16, 0, .3)
+    glVertex(-35, 0, .3)
+    glVertex(-25.3, .4, 1.9)
+    glVertex(-14.5, .4, 1.9)
+    glEnd()
+
+
+
+
+
+
+    glColor3f(0, 0, 1)
+    glTranslate(2.5+x, -2.5 * .25, -2.5 * .5)
+    glRotate(angle, 0, 0, 1)
+    glutWireTorus(.2, .5, 12, 8)#front right torus
+    glLoadIdentity()
+
+
+    glColor3f(1,1,0)
+    glTranslate(x,0,0)
+    glScale(1,.25,0.5)
+    glutSolidCube(5)#down cube
+    glLoadIdentity()
+
+    glTranslate(x+0,5*.25,0)
+    glScale(.5,.25,.5)
+    glutSolidCube(5)#up cube
+    glLoadIdentity()
+
+
+    glColor3f(1, 1, 0)
+    glTranslate(-2.5+x,-2.5*.25,-2.5*.5)
+    glRotate(angle, 0, 0, 1)
+    glutWireTorus(.2,.5,12,8)#back right
+    glLoadIdentity()
+
+
+    glColor3f(0, 0, 1)
+    glTranslate(-2.5+x, -2.5 * .25, 2.5 * .5)
+    glRotate(angle, 0, 0, 1)
+    glutWireTorus(.2, .5, 12, 8)#back left
+    glLoadIdentity()
+
+
+
+    glColor3f(0, 0, 1)
+    glTranslate(2.5+x, -2.5 * .25, 2.5 * .5)
+    glRotate(angle, 0, 0, 1)
+    glutWireTorus(.2, .5, 12, 8)#front left
+    glLoadIdentity()
+
+    glColor3f(1, 0, 0)
+    glTranslate(2.5+x, .05, -.500)
+    glScale(.25, 0.5, 0.25)
+    glutSolidIcosahedron() #left light
+    glLoadIdentity()
+
+    glColor3f(1, 0, 0)
+    glTranslate(2.5 + x, .05, .500)
+    glScale(.25, 0.5, 0.25)
+    glutSolidIcosahedron()  # right light
+    glLoadIdentity()
+
+    glBegin(GL_POLYGON)  # TREE
+    glColor3f(.5, .4, .1)
+    glVertex(2, 0, -4)
+    glVertex(1, 0, -4)
+    glVertex(2, 5, -4)
+    glVertex(1, 5, -4)
+    glEnd()
+
+    glColor(0, .3, 0)
+    glTranslate(-1.5,4,-9.5)
+    glScale(2.5, 2.5, 2.5)
+    glutSolidIcosahedron()
+    glLoadIdentity()
+
+    glBegin(GL_POLYGON)  # TREE
+    glColor3f(.5, .4, .1)
+    glVertex(-3, 0, -4)
+    glVertex(-4, 0, -4)
+    glVertex(-3, 4, -4)
+    glVertex(-4, 4, -4)
+    glEnd()
+
+    glColor(0, .3, 0)
+    glTranslate(-9.5, 3, -10.5)
+    glScale(2.2, 2.2, 2.2)
+    glutSolidIcosahedron()
+    glLoadIdentity()
+
+    glBegin(GL_POLYGON)  # TREE
+    glColor3f(.5, .4, .1)
+    glVertex(-8, 0, -4)
+    glVertex(-9, 0, -4)
+    glVertex(-8, 4, -4)
+    glVertex(-9, 4, -4)
+    glEnd()
+
+    glColor(0, .3, 0)
+    glTranslate(-17.5, 2.6, -10.5)
+    glScale(2.2, 2.2, 2.2)
+    glutSolidIcosahedron()
+    glLoadIdentity()
+
+    glBegin(GL_POLYGON)  # TREE
+    glColor3f(.5, .4, .1)
+    glVertex(-15, 0, -4)
+    glVertex(-16, 0, -4)
+    glVertex(-15, 4, -4)
+    glVertex(-16, 4, -4)
+    glEnd()
+
+    glColor(0, .3, 0)
+    glTranslate(-26.5, 1.6, -10.5)
+    glScale(2.2, 2.2, 2.2)
+    glutSolidIcosahedron()
+    glLoadIdentity()
+
+    glBegin(GL_POLYGON)  # TREE
+    glColor3f(.5, .4, .1)
+    glVertex(-20, 0, -4)
+    glVertex(-21, 0, -4)
+    glVertex(-20, 4, -4)
+    glVertex(-21, 4, -4)
+    glEnd()
+
+    glColor(0, .3, 0)
+    glTranslate(-36.5, .6, -10.5)
+    glScale(2.2, 2.2, 2.2)
+    glutSolidIcosahedron()
+    glLoadIdentity()
+
+
+
+
+    if x>6:
+        forward=False
+    if x<-20:
+        forward=True
+
+    if forward:
+        angle-=.1
+        x+=0.019
+    else:
+        x-=.019
+        angle+=.1
+
+
+
+
+
+
+
+
+
+
+    glutSwapBuffers()
+
+
+    glLoadIdentity()
+
+
+
+
+glutInit()
+glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
+glutInitWindowSize(500, 500)
+glutCreateWindow(b"sec5")
+glutDisplayFunc(sec5)
+glutIdleFunc(sec5)
+myInit()
+glutMainLoop()
+
